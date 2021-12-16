@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="mpattadk@localhost:12346 (5)" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="mpattadk@localhost:12346 (6)" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="mpattadk@localhost:12346">
         <serverdata>
@@ -31,6 +31,13 @@
         </serverdata>
       </paths>
       <paths name="mpattadk@localhost:12346 (5)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="mpattadk@localhost:12346 (6)">
         <serverdata>
           <mappings>
             <mapping deploy="/project/mpattadk/hiwi" local="$PROJECT_DIR$/.." />

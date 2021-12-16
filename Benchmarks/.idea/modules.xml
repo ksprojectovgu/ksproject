@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CT-WGAN_VGG_tensorflow-master.iml" filepath="$PROJECT_DIR$/.idea/CT-WGAN_VGG_tensorflow-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Benchmarks.iml" filepath="$PROJECT_DIR$/.idea/Benchmarks.iml" />
     </modules>
   </component>
 </project>
