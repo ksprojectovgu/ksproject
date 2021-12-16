@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteMappingsManager">
+    <list>
+      <list>
+        <remote-mappings server-id="python@sftp://mpattadk@localhost:12346/project/mpattadk/miniconda3/envs/hiwi/bin/python">
+          <settings>
+            <list>
+              <mapping local-root="$USER_HOME$/PycharmProjects" remote-root="/project/mpattadk/hiwi" />
+            </list>
+          </settings>
+        </remote-mappings>
+      </list>
+    </list>
+  </component>
+</project>
