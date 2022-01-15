@@ -1,7 +1,7 @@
 import torch
 
 
-def rss(data: torch.Tensor, dim: int = 0) -> torch.Tensor:
+def rss(data: torch.Tensor, dim: int = 1) -> torch.Tensor:
     """
     Compute the Root Sum of Squares (RSS).
     RSS is computed assuming that dim is the coil dimension.
