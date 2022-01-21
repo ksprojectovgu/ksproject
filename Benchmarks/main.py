@@ -4,7 +4,11 @@ from Undersampling import undersamplingKSP
 from utils.masking.center_mask import createCenterMaskPercent
 from utils.inv_fourier import ifft2c
 from utils.coil_combine import rss
-# from Undersampling import undersamplingKSP
+from models.unet_module import UnetModule
+from utils.transforms import center_crop
+from pytorch_msssim import ssim
+import nrrd
+import torch
 from Undersampling.undersamplingKSP import *
 #from utils.masking.center_mask import createCenterMaskPercent
 import h5py
@@ -40,16 +44,33 @@ def get_dataloader(
 dataloader = get_dataloader(dataset=BenchmarkDataset, path_to_csv=train_csv_path)
 print(len(dataloader))
 
+unetModule = UnetModule(in_chans=2, out_chans=1).double()
+
+
+i = 0
+
+optimizer = torch.optim.Adam(unetModule.unet.parameters(), lr=0.0001)
+mse = torch.nn.MSELoss()
+
 for data,label,slices in dataloader:
     for i in range (slices):
-        data_slice = data[:,i,:,:,:]
+        data_slice = data[:, i,:,:,:]
+        label_slice = label[:, i, :, :]
+        optimizer.zero_grad()
         masked_data = createCenterMaskPercent(data_slice,0.90)
-        print(masked_data)
         under_sampled_data = undersamplingKSP.performUndersamplingKSP(data_slice,masked_data)
         inv_fourier_image = ifft2c(under_sampled_data)
         inv_fourier_image = to_tensor(inv_fourier_image)
         coil_combined_rss = rss(inv_fourier_image)
-        break
+        coil_combined_rss = coil_combined_rss.permute(1,0,2,3)
+        output = unetModule(coil_combined_rss)
+        cropped_ouput = center_crop(output, [label_slice.shape[1], label_slice.shape[2]])
+        label_slice = label_slice.reshape(1, 1, label_slice.shape[1], label_slice.shape[2]).to(torch.float64)
+        loss = ssim(label_slice, cropped_ouput, data_range=1, size_average=False)
+        loss = mse(label_slice, cropped_ouput)
+        print(loss)
+        loss.backward()
+        optimizer.step()
     break
 
 
@@ -86,6 +107,3 @@ for data,label,slices in dataloader:
 # #output_tensor = to_tensor.to_tensor(output_)
 #
 # #coil_combine = coil_combine.rss(output_tensor, 1)
-
-
-

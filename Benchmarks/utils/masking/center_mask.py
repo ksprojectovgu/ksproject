@@ -7,7 +7,6 @@ def createCenterMaskPercent(slice, percent):
     mask = np.ones(slice[0].shape)
     i = 0
     currentPercent = 1
-    print(mask.shape)
     while currentPercent > percent:
         i += 1
         mask[:,:,0:i] = 0

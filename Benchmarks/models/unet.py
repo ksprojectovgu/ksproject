@@ -73,7 +73,6 @@ class Unet(nn.Module):
         """
         stack = []
         output = image
-
         # apply down-sampling layers
         for layer in self.down_sample_layers:
             output = layer(output)
@@ -81,7 +80,6 @@ class Unet(nn.Module):
             output = F.avg_pool2d(output, kernel_size=2, stride=2, padding=0)
 
         output = self.conv(output)
-
         # apply up-sampling layers
         for transpose_conv, conv in zip(self.up_transpose_conv, self.up_conv):
             downsample_layer = stack.pop()
